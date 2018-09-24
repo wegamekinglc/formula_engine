@@ -171,9 +171,9 @@ if __name__ == '__main__':
     rel_dates = shift_dates(ref_date, 4)
     sample_data = pd.Series(np.arange(0., periods, 1.), rel_dates)
     data_pack = dict(aapl=dict(ep=sample_data,
-                          roe=sample_data),
-                goog=dict(ep=-sample_data,
-                          roe=-sample_data))
+                               roe=sample_data),
+                     goog=dict(ep=-sample_data,
+                               roe=-sample_data))
 
     with set_global_date(ref_date), set_global_symbols(['aapl', 'goog']):
         res = Last("ep") + MovingAverage(-Last("roe"), 4)

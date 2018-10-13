@@ -4,6 +4,10 @@ project(FormulaEngin VERSION 1.0.0)
 
 include(${CMAKE_CURRENT_LIST_DIR}/cmake/fel.cmake)
 
+if(NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE Debug)
+endif()
+
 if(MSVC)
     # Remove warnings
     INCLUDE_DIRECTORIES($ENV{GTEST_ROOT}/include)

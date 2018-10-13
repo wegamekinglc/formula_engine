@@ -1,4 +1,4 @@
-#include "settings.hpp"
+#include <fel/settings.hpp>
 
 namespace FEngine {
     DateTime Settings::referenceDate() const {

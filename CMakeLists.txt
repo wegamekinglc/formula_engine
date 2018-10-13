@@ -29,6 +29,6 @@ endif()
 set(CMAKE_INSTALL_PREFIX ${CMAKE_SOURCE_DIR})
 include_directories(${CMAKE_SOURCE_DIR})
 
-add_subdirectory(src)
+add_subdirectory(fel)
 add_subdirectory(examples)
 add_subdirectory(tests)

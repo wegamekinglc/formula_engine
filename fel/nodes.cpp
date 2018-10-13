@@ -1,5 +1,5 @@
-#include "nodes.hpp"
-#include "settings.hpp"
+#include <fel/nodes.hpp>
+#include <fel/settings.hpp>
 
 namespace FEngine {
 

@@ -24,8 +24,11 @@ namespace FEngine {
         public:
             DateTime referenceDate() const;
             void setReferenceDate(const DateTime&);
+            const vector<string>& symbols() const;
+            void setSymbols(const vector<string>&);
 
         private:
             DateTime referenceDate_;
+            vector<string> symbols_;
     };
 }

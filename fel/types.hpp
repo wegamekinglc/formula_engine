@@ -10,4 +10,5 @@ namespace FEngine {
     using std::vector;
     using DateTime = string;
     using Depends = map<string, vector<DateTime>>;
+    using DataPack = map<string, map<string, map<DateTime, double>>>;
 }

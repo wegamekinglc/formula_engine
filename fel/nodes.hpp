@@ -7,8 +7,8 @@ namespace FEngine {
 
     class Node {
         public:
-            virtual ~Node() = 0;
-            virtual Depends dependes(const DateTime& base) const = 0;
+            virtual ~Node() = default;
+            virtual Depends depends(const DateTime& base) const = 0;
             virtual Series calculate(const DataPack& data, const DateTime& base) const = 0;
     };
 

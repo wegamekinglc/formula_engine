@@ -151,3 +151,13 @@ TEST(SeriesTest, TestDivide) {
             ASSERT_EQ(res[key], 1. / it->second);
     }
 }
+
+TEST(SeriesTest, TestNegative) {
+    vector<string> keys = {"a", "b"};
+    vector<double> vals = {2., 1.};
+
+    Series rhs(keys, vals);
+    Series res = -rhs;
+    ASSERT_EQ(res["a"], -2.);
+    ASSERT_EQ(res["b"], -1.);
+}

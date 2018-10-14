@@ -3,7 +3,7 @@
 #include <fel/types.hpp>
 
 namespace FEngine {
-    
+
     class Series {
         public:
             using const_iterator = map<string, double>::const_iterator;
@@ -38,4 +38,6 @@ namespace FEngine {
     Series operator*(const Series& lhs, const Series& rhs);
 
     Series operator/(const Series& lhs, const Series& rhs);
+
+    Series operator-(const Series& rhs);
 }

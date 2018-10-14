@@ -80,4 +80,11 @@ namespace FEngine {
     
         return Series(res);
     }
+
+    Series operator-(const Series& rhs) {
+        map<string, double> res;
+        for(Series::const_iterator it = rhs.begin(); it != rhs.end(); ++it) 
+            res[it->first] = -it->second;
+        return Series(res);
+    }
 }

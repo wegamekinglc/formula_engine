@@ -31,4 +31,14 @@ namespace FEngine {
             DateTime referenceDate_;
             vector<string> symbols_;
     };
+
+
+    class GlobalSymbols {
+        public:
+            GlobalSymbols(const vector<string>& symbols);
+            ~GlobalSymbols();
+
+        private:
+            vector<string> preSymbols_;
+    };
 }

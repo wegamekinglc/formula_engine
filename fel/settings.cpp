@@ -16,4 +16,13 @@ namespace FEngine {
     void Settings::setSymbols(const vector<string>& symbols) {
         symbols_ = symbols;
     }
+
+    GlobalSymbols::GlobalSymbols(const vector<string>& symbols) {
+        preSymbols_ = Settings::instance().symbols();
+        Settings::instance().setSymbols(symbols);
+    }
+
+    GlobalSymbols::~GlobalSymbols() {
+        Settings::instance().setSymbols(preSymbols_);
+    }
 }

@@ -161,3 +161,14 @@ TEST(SeriesTest, TestNegative) {
     ASSERT_EQ(res["a"], -2.);
     ASSERT_EQ(res["b"], -1.);
 }
+
+TEST(SeriesTest, TestRank) {
+    vector<string> keys = {"a", "b", "c"};
+    vector<double> vals = {4., 2., 6.};
+
+    Series rhs(keys, vals);
+    Series res = rank(rhs);
+    ASSERT_EQ(res["a"], 1.);
+    ASSERT_EQ(res["b"], 0.);
+    ASSERT_EQ(res["c"], 2.);
+}

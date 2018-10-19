@@ -18,4 +18,34 @@ namespace FEngine {
         }
         return Series(symbols, values);
     }
+
+    Last* Last::clone() const {
+        return new Last(name_);
+    }
+
+    BinaryOperator::BinaryOperator(const Node& lhs, const Node& rhs)
+        :lhs_(lhs.clone()), rhs_(rhs.clone()) {}
+
+    Depends BinaryOperator::depends(const DateTime& base) const {
+        Depends ldep = lhs_->depends(base);
+        Depends rdep = rhs_->depends(base);
+        return mergeDepends(ldep, rdep);
+    }
+
+    PlusOperator::PlusOperator(const Node& lhs, const Node& rhs)
+        :BinaryOperator(lhs, rhs) {}
+
+    Series PlusOperator::calculate(const DataPack& data, const DateTime& base) const {
+        Series lres = lhs_->calculate(data, base);
+        Series rres = rhs_->calculate(data, base);
+        return lres + rres;
+    }
+
+    PlusOperator* PlusOperator::clone() const {
+        return new PlusOperator(*lhs_, *rhs_);
+    }
+
+    PlusOperator operator+(const Node& lhs, const Node& rhs) {
+        return PlusOperator(lhs, rhs);
+    }
 }

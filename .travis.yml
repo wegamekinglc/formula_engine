@@ -1,0 +1,99 @@
+language: cpp
+# command to install dependencies
+sudo: enabled
+dist: trusty
+group: travis_lts
+matrix:
+  include:
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - llvm-toolchain-trusty-3.9
+          packages:
+            - clang-3.9
+            - libc++-dev
+            - libgtest-dev
+            - make
+            - cmake
+      env:
+        - MATRIX_EVAL="CC=clang-3.9 && CXX=clang++-3.9"
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - llvm-toolchain-trusty-4.0
+          packages:
+            - clang-4.0
+            - libc++-dev
+            - libgtest-dev
+            - make
+            - cmake
+      env:
+        - MATRIX_EVAL="CC=clang-4.0 && CXX=clang++-4.0"
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - llvm-toolchain-trusty-5.0
+          packages:
+            - clang-5.0
+            - libc++-dev
+            - libgtest-dev
+            - make
+            - cmake
+      env:
+        - MATRIX_EVAL="CC=clang-5.0 && CXX=clang++-5.0"
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-5
+            - libgtest-dev
+            - make
+            - cmake
+      env:
+        - MATRIX_EVAL="CC=gcc-5 && CXX=g++-5"
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-6
+            - libgtest-dev
+            - make
+            - cmake
+      env:
+        - MATRIX_EVAL="CC=gcc-6 && CXX=g++-6"
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-7
+            - libgtest-dev
+            - make
+            - cmake
+      env:
+        - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
+before_install:
+  - eval "${MATRIX_EVAL}"
+install:
+  - export CWD=$PWD
+  - cd /usr/src/gtest
+  - if [[ "$CXX" == *"clang++"* ]]; then
+      echo "using clang++";
+      sudo cmake CMakeLists.txt -DCMAKE_CXX_FLAGS="$CXX_FLAGS -stdlib=libc++ -DGTEST_USE_OWN_TR1_TUPLE=1";
+    else
+      echo "using g++";
+      sudo cmake CMakeLists.txt;
+    fi
+  - sudo make
+  - sudo cp *.* /usr/lib/
+  - cd $CWD
+script:
+- bash ./build_linux.sh

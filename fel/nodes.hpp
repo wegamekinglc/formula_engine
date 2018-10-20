@@ -43,7 +43,32 @@ namespace FEngine {
             PlusOperator* clone() const;
     };
 
+    class MinusOperator: public BinaryOperator {
+        public:
+            MinusOperator(const Node& lhs, const Node& rhs);
+            Series calculate(const DataPack& data, const DateTime& base) const;
+            MinusOperator* clone() const;
+    };
+
+    class MultiplyOperator: public BinaryOperator {
+        public:
+            MultiplyOperator(const Node& lhs, const Node& rhs);
+            Series calculate(const DataPack& data, const DateTime& base) const;
+            MultiplyOperator* clone() const;
+    };
+
+    class DivideOperator: public BinaryOperator {
+        public:
+            DivideOperator(const Node& lhs, const Node& rhs);
+            Series calculate(const DataPack& data, const DateTime& base) const;
+            DivideOperator* clone() const;
+    };
+
     PlusOperator operator+(const Node&, const Node&);
 
-    
+    MinusOperator operator-(const Node&, const Node&);
+
+    MultiplyOperator operator*(const Node&, const Node&);
+
+    DivideOperator operator/(const Node&, const Node&);
 }

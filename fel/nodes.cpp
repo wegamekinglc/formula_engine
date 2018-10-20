@@ -48,4 +48,55 @@ namespace FEngine {
     PlusOperator operator+(const Node& lhs, const Node& rhs) {
         return PlusOperator(lhs, rhs);
     }
+
+    MinusOperator::MinusOperator(const Node& lhs, const Node& rhs)
+        :BinaryOperator(lhs, rhs) {}
+
+    Series MinusOperator::calculate(const DataPack& data, const DateTime& base) const {
+        Series lres = lhs_->calculate(data, base);
+        Series rres = rhs_->calculate(data, base);
+        return lres - rres;
+    }
+
+    MinusOperator* MinusOperator::clone() const {
+        return new MinusOperator(*lhs_, *rhs_);
+    }
+
+    MinusOperator operator-(const Node& lhs, const Node& rhs) {
+        return MinusOperator(lhs, rhs);
+    }
+
+    MultiplyOperator::MultiplyOperator(const Node& lhs, const Node& rhs)
+        :BinaryOperator(lhs, rhs) {}
+
+    Series MultiplyOperator::calculate(const DataPack& data, const DateTime& base) const {
+        Series lres = lhs_->calculate(data, base);
+        Series rres = rhs_->calculate(data, base);
+        return lres * rres;
+    }
+
+    MultiplyOperator* MultiplyOperator::clone() const {
+        return new MultiplyOperator(*lhs_, *rhs_);
+    }
+
+    MultiplyOperator operator*(const Node& lhs, const Node& rhs) {
+        return MultiplyOperator(lhs, rhs);
+    }
+
+    DivideOperator::DivideOperator(const Node& lhs, const Node& rhs)
+        :BinaryOperator(lhs, rhs) {}
+
+    Series DivideOperator::calculate(const DataPack& data, const DateTime& base) const {
+        Series lres = lhs_->calculate(data, base);
+        Series rres = rhs_->calculate(data, base);
+        return lres / rres;
+    }
+
+    DivideOperator* DivideOperator::clone() const {
+        return new DivideOperator(*lhs_, *rhs_);
+    }
+
+    DivideOperator operator/(const Node& lhs, const Node& rhs) {
+        return DivideOperator(lhs, rhs);
+    }
 }

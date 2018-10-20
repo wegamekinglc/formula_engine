@@ -45,7 +45,7 @@ namespace FEngine {
             Day dayOfYear() const;
             Month month() const;
             Year year() const;
-            serial_type serial() const;
+            serial_type serial() const { return serial_;}
 
             static serial_type minimumSerial();
             static serial_type maximumSerial();

@@ -38,7 +38,7 @@ namespace FEngine {
             using serial_type = unsigned int;
             Date();
             explicit Date(serial_type serial);
-            Date(const std::string& str);
+            explicit Date(const std::string& str);
             Date(Year y, Month m, Day d);
 
             Day dayOfMonth() const;
@@ -53,8 +53,8 @@ namespace FEngine {
             static Date maxDate();
             static bool isLeap(Year y);
             static int monthLength(Month m, bool leapYear);
-            static int Date::monthOffset(Month m, bool leapYear);
-            static Date::serial_type Date::yearOffset(Year y);
+            static int monthOffset(Month m, bool leapYear);
+            static Date::serial_type yearOffset(Year y);
 
         private:
             serial_type serial_;

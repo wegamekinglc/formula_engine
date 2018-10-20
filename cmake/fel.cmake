@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.0)
 macro(get_fe_library_name FE_OUTPUT_NAME)
-message(STATUS "fe library name tokens:")
+message(STATUS "fel library name tokens:")
 # MSVC: Give QuantLib built library different names following code in 'ql/autolink.hpp'
 if (MSVC)
     # - toolset
@@ -45,9 +45,9 @@ else ()
     set(${FE_OUTPUT_NAME} "fel")
 endif ()
 if(${CMAKE_BUILD_TYPE} MATCHES Release)
-    message(STATUS "fe library name: ${${FE_OUTPUT_NAME}}")
+    message(STATUS "fel library name: ${${FE_OUTPUT_NAME}}")
 else()
-    message(STATUS "fe library name: ${${FE_OUTPUT_NAME}}${CMAKE_DEBUG_POSTFIX}")
+    message(STATUS "fel library name: ${${FE_OUTPUT_NAME}}${CMAKE_DEBUG_POSTFIX}")
 endif()
 endmacro(get_fe_library_name)
 

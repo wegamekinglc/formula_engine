@@ -115,6 +115,10 @@ namespace FEngine {
         return Series(res);
     }
 
+    bool operator==(const Series& lhs, const Series& rhs) {
+        return lhs.maps_ == rhs.maps_;
+    }
+
     Series rank(const Series& rhs) {
         return Series(rhs.keys(), rankSort(rhs.vals()));
     }

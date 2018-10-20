@@ -7,6 +7,7 @@ namespace FEngine {
     class Series {
         public:
             using const_iterator = map<string, double>::const_iterator;
+            friend bool operator==(const Series& lhs, const Series& rhs);
             Series(const vector<string>& keys, const vector<double>& vals) {
                 for (size_t i = 0; i < keys.size(); ++i)
                     maps_[keys[i]] = vals[i];
@@ -38,11 +39,14 @@ namespace FEngine {
             const vector<string>& keys() const { return keys_;}
             const vector<double>& vals() const { return vals_;}
 
+
         private:
             map<string, double> maps_;
             vector<string> keys_;
             vector<double> vals_;
     };
+
+    bool operator==(const Series& lhs, const Series& rhs);
 
     Series operator+(const Series& lhs, const Series& rhs);
 

@@ -15,7 +15,7 @@ namespace FEngine {
                 vals_ = vals;
             }
 
-            Series(const map<string, double>& vals) {
+            explicit Series(const map<string, double>& vals) {
                 maps_ = vals;
                 for (map<string, double>::const_iterator it=maps_.begin();
                         it != maps_.end(); ++it) {

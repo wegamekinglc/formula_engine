@@ -19,7 +19,7 @@ namespace FEngine {
 
     class Last: public Node {
         public:
-            Last(const std::string& name): name_(name) {}
+            explicit Last(const std::string& name): name_(name) {}
             Depends depends(const DateTime& base) const;
             Series calculate(const DataPack& data, const DateTime& base) const;
             const string& name() const { return name_;}

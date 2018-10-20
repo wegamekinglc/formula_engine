@@ -7,7 +7,7 @@ namespace FEngine {
 
     class CSBase: public Node {
         public:
-            CSBase(const Node& inner);
+            explicit CSBase(const Node& inner);
             Depends depends(const DateTime& base) const;
         
         protected:
@@ -16,7 +16,7 @@ namespace FEngine {
 
     class CSRank: public CSBase {
         public:
-            CSRank(const Node& inner);
+            explicit CSRank(const Node& inner);
             Series calculate(const DataPack& data, const DateTime& base) const;
             CSRank* clone() const;
     };

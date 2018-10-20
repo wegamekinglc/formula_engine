@@ -3,3 +3,5 @@ build
 include
 bin
 lib
+.idea
+cmake-build*

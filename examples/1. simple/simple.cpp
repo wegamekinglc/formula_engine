@@ -15,7 +15,7 @@ void print(const Series& res, const DateTime& date) {
 
 int main() {
 
-    auto formula1 = (Last("close") + Last("open")) / (Last("high") + Last("low"));
+    auto formula1 = (CLOSE() + OPEN()) / ( HIGH() + LOW());
     auto formula2 = CSRank(formula1);
 
     /*

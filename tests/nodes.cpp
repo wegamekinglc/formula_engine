@@ -1,4 +1,4 @@
-#include <fel/nodes.hpp>
+#include <fel/operators/nodes.hpp>
 #include <fel/settings.hpp>
 #include <gtest/gtest.h>
 

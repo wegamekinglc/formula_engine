@@ -1,6 +1,6 @@
 #include <random>
 #include <fel/settings.hpp>
-#include <fel/crosssections.hpp>
+#include <fel/operators/crosssections.hpp>
 #include <gtest/gtest.h>
 
 using namespace FEngine;

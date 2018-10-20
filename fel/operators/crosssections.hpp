@@ -1,7 +1,7 @@
 #pragma once
 
 #include<fel/types.hpp>
-#include<fel/nodes.hpp>
+#include<fel/operators/nodes.hpp>
 
 namespace FEngine {
 

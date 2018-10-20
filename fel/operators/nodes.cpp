@@ -1,4 +1,4 @@
-#include <fel/nodes.hpp>
+#include <fel/operators/nodes.hpp>
 #include <fel/settings.hpp>
 
 namespace FEngine {
@@ -35,8 +35,18 @@ namespace FEngine {
         :inner_(inner.clone()), n_(n) {}
 
     Depends Shift::depends(const DateTime& base) const {
+        // currenctly the implementation is not correct
         Depends res = inner_->depends(base);
         return res;
+    }
+
+    Shift* Shift::clone() const {
+        return new Shift(*inner_, n_);
+    }
+
+    Series Shift::calculate(const DataPack& data, const DateTime& base) const {
+        // currenctly the implementation is not correct
+        return inner_->calculate(data, base);
     }
 
     BinaryOperator::BinaryOperator(const Node& lhs, const Node& rhs)

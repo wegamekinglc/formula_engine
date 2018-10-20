@@ -11,7 +11,7 @@ namespace FEngine {
     }
 
     Series Last::calculate(const DataPack& data, const DateTime& base) const {
-        vector<string> symbols = Settings::instance().symbols();
+        const vector<string>& symbols = Settings::instance().symbols();
         vector<double> values(symbols.size());
         for(size_t i = 0; i != symbols.size(); ++i) {
             values[i] = data.at(symbols[i]).at(name_).at(base);

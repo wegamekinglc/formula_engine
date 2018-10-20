@@ -17,9 +17,9 @@ namespace FEngine {
         /*! the automatically generated destructor would
             not have the throw specifier.
         */
-        ~Error() throw() {}
+        ~Error() noexcept = default;
         //! returns the error message.
-        const char* what() const throw ();
+        const char* what() const noexcept;
       private:
         std::shared_ptr<std::string> message_;
     };

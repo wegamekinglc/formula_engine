@@ -14,6 +14,6 @@ namespace FEngine {
         Month month = static_cast<Month>(std::atoi(str.substr(5, 2).c_str()));
         int day = std::atoi(str.substr(8, 2).c_str());
 
-        return Date(day, month, year);
+        return Date(year, month, day);
     }
 }

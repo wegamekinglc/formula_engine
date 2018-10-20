@@ -4,7 +4,7 @@
 
 namespace FEngine {
 
-    using Day = unsigned int;
+    using Day = int;
 
     enum Month { January   = 1,
                  February  = 2,
@@ -31,7 +31,7 @@ namespace FEngine {
                  Dec = 12
     };
 
-    using Year = unsigned int;
+    using Year = int;
 
     class Date {
         public:
@@ -52,8 +52,8 @@ namespace FEngine {
             static Date minDate();
             static Date maxDate();
             static bool isLeap(Year y);
-            static unsigned int monthLength(Month m, bool leapYear);
-            static unsigned int Date::monthOffset(Month m, bool leapYear);
+            static int monthLength(Month m, bool leapYear);
+            static int Date::monthOffset(Month m, bool leapYear);
             static Date::serial_type Date::yearOffset(Year y);
 
         private:

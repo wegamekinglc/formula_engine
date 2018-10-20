@@ -94,7 +94,7 @@ namespace FEngine {
 
     Month Date::month() const {
         Day d = dayOfYear(); // dayOfYear is 1 based
-        unsigned int m = d / 30 + 1;
+        int m = d / 30 + 1;
         bool leap = isLeap(year());
         while (d <= monthOffset(Month(m),leap))
             --m;
@@ -212,23 +212,23 @@ namespace FEngine {
         return YearIsLeap[y-1900];
     }
 
-    unsigned int Date::monthLength(Month m, bool leapYear) {
-        static const unsigned int MonthLength[] = {
+    int Date::monthLength(Month m, bool leapYear) {
+        static const int MonthLength[] = {
             31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31
         };
-        static const unsigned int MonthLeapLength[] = {
+        static const int MonthLeapLength[] = {
             31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31
         };
         return (leapYear? MonthLeapLength[m-1] : MonthLength[m-1]);
     }
 
-    unsigned int Date::monthOffset(Month m, bool leapYear) {
-        static const unsigned int MonthOffset[] = {
+    int Date::monthOffset(Month m, bool leapYear) {
+        static const int MonthOffset[] = {
               0,  31,  59,  90, 120, 151,   // Jan - Jun
             181, 212, 243, 273, 304, 334,   // Jun - Dec
             365     // used in dayOfMonth to bracket day
         };
-        static const unsigned int MonthLeapOffset[] = {
+        static const int MonthLeapOffset[] = {
               0,  31,  60,  91, 121, 152,   // Jan - Jun
             182, 213, 244, 274, 305, 335,   // Jun - Dec
             366     // used in dayOfMonth to bracket day

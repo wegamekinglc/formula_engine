@@ -20,17 +20,11 @@ namespace FEngine {
         }
 #else
         // use gcc format (e.g. for integration with Emacs)
-    std::string format(const std::string& file, long line,
-                       const std::string& function,
+    std::string format(const std::string& file,
+                       long line,
                        const std::string& message) {
         std::ostringstream msg;
-        #ifdef QL_ERROR_LINES
         msg << "\n" << file << ":" << line << ": ";
-        #endif
-        #ifdef QL_ERROR_FUNCTIONS
-        if (function != "(unknown)")
-            msg << "In function `" << function << "': \n";
-        #endif
         msg << message;
         return msg.str();
     }

@@ -3,6 +3,14 @@
 
 namespace FEngine {
 
+    Shift Node::shift(unsigned int n) const {
+        return Shift(*this, n);
+    }
+
+    Shift Node::operator[](unsigned int n) const {
+        return shift(n);
+    }
+
     Depends Last::depends(const DateTime& base) const {
         vector<DateTime> dts(1, base);
         Depends res;
@@ -21,6 +29,14 @@ namespace FEngine {
 
     Last* Last::clone() const {
         return new Last(name_);
+    }
+
+    Shift::Shift(const Node& inner, unsigned int n)
+        :inner_(inner.clone()), n_(n) {}
+
+    Depends Shift::depends(const DateTime& base) const {
+        Depends res = inner_->depends(base);
+        return res;
     }
 
     BinaryOperator::BinaryOperator(const Node& lhs, const Node& rhs)

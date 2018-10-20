@@ -5,6 +5,7 @@
 #include <fel/containers.hpp>
 
 namespace FEngine {
+    class Shift;
 
     class Node {
         public:
@@ -12,6 +13,8 @@ namespace FEngine {
             virtual Depends depends(const DateTime& base) const = 0;
             virtual Series calculate(const DataPack& data, const DateTime& base) const = 0;
             virtual Node* clone() const = 0;
+            Shift operator[](unsigned int n) const;
+            Shift shift(unsigned int n) const;
     };
 
     class Last: public Node {
@@ -24,6 +27,19 @@ namespace FEngine {
 
         private:
             string name_;
+    };
+
+    class Shift: public Node {
+        public:
+            Shift(const Node& inner, unsigned int n);
+            Depends depends(const DateTime& base) const;
+            Series calculate(const DataPack& data, const DateTime& base) const;
+            Shift* clone() const;
+            unsigned int period() const { return n_;}
+        
+        private:
+            shared_ptr<Node> inner_;
+            unsigned int n_;
     };
 
     class BinaryOperator: public Node {

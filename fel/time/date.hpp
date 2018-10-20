@@ -38,6 +38,7 @@ namespace FEngine {
             using serial_type = unsigned int;
             Date();
             explicit Date(serial_type serial);
+            Date(const std::string& str);
             Date(Year y, Month m, Day d);
 
             Day dayOfMonth() const;
@@ -45,11 +46,15 @@ namespace FEngine {
             Month month() const;
             Year year() const;
             serial_type serial() const;
+
             static serial_type minimumSerial();
             static serial_type maximumSerial();
             static Date minDate();
             static Date maxDate();
-
+            static bool isLeap(Year y);
+            static unsigned int monthLength(Month m, bool leapYear);
+            static unsigned int Date::monthOffset(Month m, bool leapYear);
+            static Date::serial_type Date::yearOffset(Year y);
 
         private:
             serial_type serial_;
@@ -61,6 +66,22 @@ namespace FEngine {
 
     inline bool operator!=(const Date& d1, const Date& d2) {
         return (d1.serial() != d2.serial());
+    }
+
+    inline bool operator<(const Date& d1, const Date& d2) {
+        return (d1.serial() < d2.serial());
+    }
+
+    inline bool operator<=(const Date& d1, const Date& d2) {
+        return (d1.serial() <= d2.serial());
+    }
+
+    inline bool operator>(const Date& d1, const Date& d2) {
+        return (d1.serial() > d2.serial());
+    }
+
+    inline bool operator>=(const Date& d1, const Date& d2) {
+        return (d1.serial() >= d2.serial());
     }
 
     std::ostream& operator<<(std::ostream&, const Date&);

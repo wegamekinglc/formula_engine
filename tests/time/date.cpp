@@ -25,3 +25,16 @@ TEST(DateTest, TestDateFromStr) {
     ASSERT_EQ(date.dayOfMonth(), 22);
 }
 
+TEST(DateTest, TestDateComparison) {
+    Date date1(2018, November, 12);
+    Date date2(2018, November, 22);
+
+    ASSERT_TRUE(date1 < date2);
+    ASSERT_TRUE(date1 <= date2);
+    ASSERT_FALSE(date1 >= date2);
+    ASSERT_TRUE(date1 != date2);
+
+    date2 = date1;
+    ASSERT_TRUE(date1 == date2);
+}
+

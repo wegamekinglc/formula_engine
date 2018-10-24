@@ -38,3 +38,10 @@ TEST(DateTest, TestDateComparison) {
     ASSERT_TRUE(date1 == date2);
 }
 
+TEST(DateTest, TestDateIsLeap) {
+    ASSERT_FALSE(Date::isLeap(2001));
+    ASSERT_TRUE(Date::isLeap(2012));
+    ASSERT_FALSE(Date::isLeap(2100));
+    ASSERT_TRUE(Date::isLeap(2000));
+}
+

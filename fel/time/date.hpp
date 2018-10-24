@@ -38,7 +38,7 @@ namespace FEngine {
             using serial_type = unsigned int;
             Date();
             explicit Date(serial_type serial);
-            explicit Date(const std::string& str);
+            Date(const std::string& str);
             Date(Year y, Month m, Day d);
 
             Day dayOfMonth() const;

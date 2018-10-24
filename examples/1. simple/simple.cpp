@@ -22,7 +22,7 @@ int main() {
     The Following are only for demonstration
     */
 
-    vector<DateTime> dates = {"2018-01-01", "2018-02-01", "2018-03-01", "2018-04-01", "2018-05-01", "2018-06-01"};
+    vector<DateTime> dates = {Date("2018-01-01"), Date("2018-02-01"), Date("2018-03-01"), Date("2018-04-01"), Date("2018-05-01"), Date("2018-06-01")};
     default_random_engine e(551);
 
     for(auto date: dates) {

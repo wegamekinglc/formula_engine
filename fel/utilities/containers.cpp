@@ -7,7 +7,7 @@ namespace FEngine {
     namespace {
         vector<double> rankSort(const vector<double>& rhs) {
             size_t  size = rhs.size();
-            vector<std::pair<float, size_t> > v_sort(size);
+            vector<std::pair<double, size_t> > v_sort(size);
 
             for (size_t i = 0U; i < size; ++i) {
                 v_sort[i] = std::make_pair(rhs[i], i);

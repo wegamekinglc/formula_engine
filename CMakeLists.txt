@@ -5,7 +5,7 @@ project(FormulaEngin VERSION 1.0.0)
 include(${CMAKE_CURRENT_LIST_DIR}/cmake/fel.cmake)
 
 if(NOT CMAKE_BUILD_TYPE)
-    set(CMAKE_BUILD_TYPE Debug)
+    set(CMAKE_BUILD_TYPE Release)
 endif()
 
 if(MSVC)
@@ -21,6 +21,7 @@ if(MSVC)
         link_directories($ENV{GTEST_ROOT}/lib/${CMAKE_BUILD_TYPE}/MD)
     endif()
 
+    link_directories(${CMAKE_SOURCE_DIR}/lib/libpqxx/windows)
     configure_msvc_runtime()
     add_definitions(-D_SCL_SECURE_NO_WARNINGS -D_CRT_SECURE_NO_WARNINGS)
 elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
@@ -33,6 +34,7 @@ endif()
 
 set(CMAKE_INSTALL_PREFIX ${CMAKE_SOURCE_DIR})
 include_directories(${CMAKE_SOURCE_DIR})
+include_directories(${CMAKE_SOURCE_DIR}/lib/libpqxx/include)
 
 add_subdirectory(fel)
 add_subdirectory(examples)

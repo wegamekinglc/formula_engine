@@ -8,7 +8,7 @@ namespace FEngine {
     class CSBase: public Node {
         public:
             explicit CSBase(const Node& inner);
-            Depends depends(const DateTime& base) const;
+            Depends depends(const DateTime& base) const override;
         
         protected:
             shared_ptr<Node> inner_;
@@ -17,7 +17,7 @@ namespace FEngine {
     class CSRank: public CSBase {
         public:
             explicit CSRank(const Node& inner);
-            Series calculate(const DataPack& data, const DateTime& base) const;
-            CSRank* clone() const;
+            Series calculate(const DataPack& data, const DateTime& base) const override;
+            CSRank* clone() const override;
     };
 }

@@ -20,10 +20,10 @@ namespace FEngine {
     class Last: public Node {
         public:
             explicit Last(const std::string& name): name_(name) {}
-            Depends depends(const DateTime& base) const;
-            Series calculate(const DataPack& data, const DateTime& base) const;
+            Depends depends(const DateTime& base) const override;
+            Series calculate(const DataPack& data, const DateTime& base) const override;
             const string& name() const { return name_;}
-            Last* clone() const;
+            Last* clone() const override;
 
         private:
             string name_;
@@ -32,9 +32,9 @@ namespace FEngine {
     class Shift: public Node {
         public:
             Shift(const Node& inner, unsigned int n);
-            Depends depends(const DateTime& base) const;
-            Series calculate(const DataPack& data, const DateTime& base) const;
-            Shift* clone() const;
+            Depends depends(const DateTime& base) const override;
+            Series calculate(const DataPack& data, const DateTime& base) const override;
+            Shift* clone() const override;
             unsigned int period() const { return n_;}
         
         private:
@@ -45,7 +45,7 @@ namespace FEngine {
     class BinaryOperator: public Node {
         public:
             BinaryOperator(const Node& lhs, const Node& rhs);
-            Depends depends(const DateTime& base) const;
+            Depends depends(const DateTime& base) const override;
 
         protected:
             shared_ptr<Node> lhs_;
@@ -55,29 +55,29 @@ namespace FEngine {
     class PlusOperator: public BinaryOperator {
         public:
             PlusOperator(const Node& lhs, const Node& rhs);
-            Series calculate(const DataPack& data, const DateTime& base) const;
-            PlusOperator* clone() const;
+            Series calculate(const DataPack& data, const DateTime& base) const override;
+            PlusOperator* clone() const override;
     };
 
     class MinusOperator: public BinaryOperator {
         public:
             MinusOperator(const Node& lhs, const Node& rhs);
-            Series calculate(const DataPack& data, const DateTime& base) const;
-            MinusOperator* clone() const;
+            Series calculate(const DataPack& data, const DateTime& base) const override;
+            MinusOperator* clone() const override;
     };
 
     class MultiplyOperator: public BinaryOperator {
         public:
             MultiplyOperator(const Node& lhs, const Node& rhs);
-            Series calculate(const DataPack& data, const DateTime& base) const;
-            MultiplyOperator* clone() const;
+            Series calculate(const DataPack& data, const DateTime& base) const override;
+            MultiplyOperator* clone() const override;
     };
 
     class DivideOperator: public BinaryOperator {
         public:
             DivideOperator(const Node& lhs, const Node& rhs);
-            Series calculate(const DataPack& data, const DateTime& base) const;
-            DivideOperator* clone() const;
+            Series calculate(const DataPack& data, const DateTime& base) const override;
+            DivideOperator* clone() const override;
     };
 
     PlusOperator operator+(const Node&, const Node&);

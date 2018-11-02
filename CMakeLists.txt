@@ -5,7 +5,7 @@ project(FormulaEngin VERSION 1.0.0)
 include(${CMAKE_CURRENT_LIST_DIR}/cmake/fel.cmake)
 
 if(NOT CMAKE_BUILD_TYPE)
-    set(CMAKE_BUILD_TYPE Release)
+    set(CMAKE_BUILD_TYPE Debug)
 endif()
 
 if(MSVC)
@@ -34,7 +34,7 @@ endif()
 
 set(CMAKE_INSTALL_PREFIX ${CMAKE_SOURCE_DIR})
 include_directories(${CMAKE_SOURCE_DIR})
-include_directories(${CMAKE_SOURCE_DIR}/lib/libpqxx/include)
+include_directories(${CMAKE_SOURCE_DIR}/lib/libpqxx)
 
 add_subdirectory(fel)
 add_subdirectory(examples)

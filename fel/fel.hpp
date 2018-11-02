@@ -3,6 +3,8 @@
 #include <fel/settings.hpp>
 #include <fel/operators/nodes.hpp>
 #include <fel/operators/crosssections.hpp>
+#include <fel/time/date.hpp>
+#include <fel/data/pgstore.hpp>
 
 namespace FEngine {
     inline const Last& CLOSE() {

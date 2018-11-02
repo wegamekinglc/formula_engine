@@ -7,6 +7,13 @@ if(WIN32)
         message(FATAL_ERROR "You should build in STATIC mode as nothing is exported from the library. Use BUILD_SHARED_LIBS=OFF")
     endif()
     add_library(${FE_OUTPUT_NAME} ${FE_EILES})
+
+    if(${CMAKE_BUILD_TYPE} STREQUAL Debug)
+        target_link_libraries(${FE_OUTPUT_NAME} libpqxxD)
+    else()
+        target_link_libraries(${FE_OUTPUT_NAME} libpqxx)
+    endif()
+
     set_property(TARGET ${FE_OUTPUT_NAME} PROPERTY PROJECT_LABEL "fel")
 else()
     add_library(${FE_OUTPUT_NAME} ${FE_EILES})

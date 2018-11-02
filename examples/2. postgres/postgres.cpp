@@ -12,7 +12,7 @@ int main()
 
     pqxx::result R = store.fetch_factors(codes, dates, fields);
 
-    std::cout << "Found " << R.size() << "employees:" << std::endl;
+    std::cout << "Found " << R.size() << " records:" << std::endl;
     for (auto row: R)
         std::cout << row[0].c_str() << ", " << row[1].c_str() << std::endl;
     return 0;

@@ -8,22 +8,22 @@
 
 namespace FEngine {
     inline const Last& CLOSE() {
-        static Last res("close");
+        static Last res("closeprice");
         return res;
     }
 
     inline const Last& OPEN() {
-        static Last res("OPEN");
+        static Last res("openprice");
         return res;
     }
 
     inline const Last& HIGH() {
-        static Last res("high");
+        static Last res("highestprice");
         return res;
     }
 
     inline const Last& LOW() {
-        static Last res("low");
+        static Last res("lowestprice");
         return res;
     }
 }

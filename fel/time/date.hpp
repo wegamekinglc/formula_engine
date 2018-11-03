@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include <fel/time/timeunit.hpp>
 
 namespace FEngine {
 
@@ -56,6 +57,7 @@ namespace FEngine {
             static int monthLength(Month m, bool leapYear);
             static int monthOffset(Month m, bool leapYear);
             static Date::serial_type yearOffset(Year y);
+            static Date advance(const Date& d, int units, TimeUnit);
 
         private:
             serial_type serial_;

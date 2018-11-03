@@ -9,6 +9,7 @@ namespace FEngine {
         public:
             explicit CSBase(const Node& inner);
             Depends depends(const DateTime& base) const override;
+            std::vector<std::string> depends() const override;
         
         protected:
             shared_ptr<Node> inner_;

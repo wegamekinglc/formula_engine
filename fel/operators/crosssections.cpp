@@ -12,6 +12,10 @@ namespace FEngine {
         return inner_->depends(base);
     }
 
+    std::vector<std::string> CSBase::depends() const {
+        return inner_->depends();
+    }
+
     CSRank* CSRank::clone() const {
         return new CSRank(*inner_);
     }

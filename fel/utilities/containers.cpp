@@ -108,6 +108,39 @@ namespace FEngine {
         return Series(res);
     }
 
+    Series operator/(const Series& lhs, double rhs) {
+        map<string, double> res;
+
+        for(Series::const_iterator it = lhs.begin(); it != lhs.end(); ++it) {
+            string key = it->first;
+            double val = it->second;
+            res[key] = val / rhs;
+        }
+    
+        return Series(res);
+    }
+
+    double dot(const Series& lhs, const Series& rhs) {
+        double res = 0.;
+        for(Series::const_iterator it = lhs.begin(); it != lhs.end(); ++it) {
+            string key = it->first;
+            double val = it->second;
+            if(rhs.find(key) != rhs.end())
+                res += val * rhs.at(key);
+        }
+        return res;
+    }
+
+    double sum(const Series& rhs) {
+        double res = 0.;
+
+        for(Series::const_iterator it = rhs.begin(); it != rhs.end(); ++it) {
+            double val = it->second;
+            res += val;
+        }
+        return res;
+    }
+
     Series operator-(const Series& rhs) {
         map<string, double> res;
         for(Series::const_iterator it = rhs.begin(); it != rhs.end(); ++it) 
@@ -117,6 +150,17 @@ namespace FEngine {
 
     bool operator==(const Series& lhs, const Series& rhs) {
         return lhs.maps_ == rhs.maps_;
+    }
+
+    Series abs(const Series& rhs) {
+        map<string, double> res;
+
+        for(Series::const_iterator it = rhs.begin(); it != rhs.end(); ++it) {
+            string key = it->first;
+            double val = it->second;
+            res[key] = val >= 0 ? val : -val;
+        }
+        return Series(res);
     }
 
     Series rank(const Series& rhs) {

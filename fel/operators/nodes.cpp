@@ -1,3 +1,4 @@
+#include<algorithm>
 #include <fel/operators/nodes.hpp>
 #include <fel/settings.hpp>
 
@@ -16,6 +17,10 @@ namespace FEngine {
         Depends res;
         res[name_] = dts;
         return res;
+    }
+
+    std::vector<std::string> Last::depends() const {
+        return std::vector<std::string>(1, name_);
     }
 
     Series Last::calculate(const DataPack& data, const DateTime& base) const {
@@ -44,6 +49,10 @@ namespace FEngine {
         return new Shift(*inner_, n_);
     }
 
+    std::vector<std::string> Shift::depends() const {
+        return inner_->depends();
+    }
+
     Series Shift::calculate(const DataPack& data, const DateTime& base) const {
         // currenctly the implementation is not correct
         return inner_->calculate(data, base);
@@ -56,6 +65,15 @@ namespace FEngine {
         Depends ldep = lhs_->depends(base);
         Depends rdep = rhs_->depends(base);
         return mergeDepends(ldep, rdep);
+    }
+
+    std::vector<std::string> BinaryOperator::depends() const {
+        auto ldep = lhs_->depends();
+        auto rdep = rhs_->depends();
+        ldep.insert(ldep.end(), rdep.begin(), rdep.end());
+        std::sort(ldep.begin(), ldep.end() );
+        ldep.erase(std::unique(ldep.begin(), ldep.end() ), ldep.end() );
+        return ldep;
     }
 
     PlusOperator::PlusOperator(const Node& lhs, const Node& rhs)

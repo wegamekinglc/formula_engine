@@ -96,4 +96,5 @@ install:
   - sudo cp *.* /usr/lib/
   - cd $CWD
 script:
+- ldd .lib/libpqxx/linux/libpq.so.5.10
 - bash ./build_linux.sh

@@ -5,3 +5,4 @@ bin
 lib/fel*
 .idea
 cmake-build*
+libfel.*

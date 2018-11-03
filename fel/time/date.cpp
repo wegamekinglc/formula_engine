@@ -2,6 +2,7 @@
 #include <fel/utilities/errors.hpp>
 #include <fel/time/dateparser.hpp>
 #include <iomanip>
+#include <ostream>
 
 namespace FEngine {
 
@@ -139,6 +140,12 @@ namespace FEngine {
 
     std::ostream& operator<<(std::ostream& out, const Date& d) {
         return out << iso_date(d);
+    }
+
+    std::string Date::to_string(const Date& d) {
+        std::ostringstream convert;
+        convert << d;
+        return convert.str();
     }
 
     bool Date::isLeap(Year y) {

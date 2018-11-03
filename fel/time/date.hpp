@@ -46,7 +46,8 @@ namespace FEngine {
             Month month() const;
             Year year() const;
             serial_type serial() const { return serial_;}
-
+            
+            static std::string to_string(const Date&);
             static serial_type minimumSerial();
             static serial_type maximumSerial();
             static Date minDate();

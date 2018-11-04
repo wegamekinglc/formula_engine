@@ -6,3 +6,4 @@ lib/fel*
 .idea
 cmake-build*
 libfel.*
+lib/libpqxx/linux

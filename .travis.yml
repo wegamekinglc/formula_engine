@@ -6,6 +6,8 @@ group: travis_lts
 matrix:
   include:
     - os: linux
+      services:
+        - postgresql
       addons:
         apt:
           sources:
@@ -16,11 +18,12 @@ matrix:
             - libgtest-dev
             - make
             - cmake
-            - postgresql
             - libpq-dev
       env:
         - MATRIX_EVAL="CC=clang-3.9 && CXX=clang++-3.9"
     - os: linux
+      services:
+          - postgresql
       addons:
         apt:
           sources:
@@ -31,11 +34,12 @@ matrix:
             - libgtest-dev
             - make
             - cmake
-            - postgresql
             - libpq-dev
       env:
         - MATRIX_EVAL="CC=clang-4.0 && CXX=clang++-4.0"
     - os: linux
+      services:
+        - postgresql
       addons:
         apt:
           sources:
@@ -46,11 +50,12 @@ matrix:
             - libgtest-dev
             - make
             - cmake
-            - postgresql
             - libpq-dev
       env:
         - MATRIX_EVAL="CC=clang-5.0 && CXX=clang++-5.0"
     - os: linux
+      services:
+        - postgresql
       addons:
         apt:
           sources:
@@ -60,11 +65,12 @@ matrix:
             - libgtest-dev
             - make
             - cmake
-            - postgresql
             - libpq-dev
       env:
         - MATRIX_EVAL="CC=gcc-5 && CXX=g++-5"
     - os: linux
+      services:
+        - postgresql
       addons:
         apt:
           sources:
@@ -74,11 +80,12 @@ matrix:
             - libgtest-dev
             - make
             - cmake
-            - postgresql
             - libpq-dev
       env:
         - MATRIX_EVAL="CC=gcc-6 && CXX=g++-6"
     - os: linux
+      services:
+        - postgresql
       addons:
         apt:
           sources:
@@ -88,7 +95,6 @@ matrix:
             - libgtest-dev
             - make
             - cmake
-            - postgresql
             - libpq-dev
       env:
         - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"

@@ -16,7 +16,7 @@ if(WIN32)
 
     set_property(TARGET ${FE_OUTPUT_NAME} PROPERTY PROJECT_LABEL "fel")
 else()
-    add_library(${FE_OUTPUT_NAME} SHARED ${FE_EILES})
+    add_library(${FE_OUTPUT_NAME} ${FE_EILES})
     target_link_libraries(${FE_OUTPUT_NAME} pqxx)
     target_link_libraries(${FE_OUTPUT_NAME} pq)
 endif()

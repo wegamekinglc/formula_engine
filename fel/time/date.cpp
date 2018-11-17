@@ -94,7 +94,11 @@ namespace FEngine {
     }
 
     Weekday Date::weekday() const {
-        return Weekday(serial_ % 7);
+        int w = serial_ % 7;
+        if(w == 0)
+            return Saturday;
+        else
+            return Weekday(w);
     }
 
     Month Date::month() const {
@@ -159,6 +163,27 @@ namespace FEngine {
         return convert.str();
     }
 
+    Date& Date::operator+=(Date::serial_type d) {
+        Date::serial_type serial = serial_ + d;
+        serial_ = serial;
+        return *this;
+    }
+
+    Date& Date::operator+=(const Period& p) {
+        serial_ = advance(*this, p.length(), p.units()).serial();
+        return *this;
+    }
+
+    Date& Date::operator-=(Date::serial_type d) {
+        Date::serial_type serial = serial_ - d;
+        serial_ = serial;
+        return *this;
+    }
+    Date& Date::operator-=(const Period& p) {
+        serial_ = advance(*this, -p.length(), p.units()).serial();
+        return *this;
+    }
+
     Date& Date::operator++() {
         Date::serial_type serial = serial_ + 1;
         serial_ = serial;
@@ -169,6 +194,94 @@ namespace FEngine {
         Date::serial_type serial = serial_ - 1;
         serial_ = serial;
         return *this;
+    }
+
+    Date Date::operator++(int ) {
+        Date old(*this);
+        ++*this; // use the pre-increment
+        return old;
+    }
+
+    Date Date::operator--(int ) {
+        Date old(*this);
+        --*this; // use the pre-decrement
+        return old;
+    }
+
+    Date Date::operator+(Date::serial_type days) const {
+        Date retVal(*this);
+        retVal += days;
+
+        return retVal;
+    }
+
+    Date Date::operator-(Date::serial_type days) const {
+        Date retVal(*this);
+        retVal -= days;
+
+        return retVal;
+    }
+
+    Date Date::operator+(const Period& p) const {
+        Date retVal(*this);
+        retVal += p;
+
+        return retVal;
+    }
+
+    Date Date::operator-(const Period& p) const {
+        Date retVal(*this);
+        retVal -= p;
+
+        return retVal;
+    }
+
+    Date Date::advance(const Date& date, int n, TimeUnit units) {
+        switch (units) {
+          case Days:
+            return date + n;
+          case Weeks:
+            return date + 7*n;
+          case Months: {
+            Day d = date.dayOfMonth();
+            int m = int(date.month())+n;
+            Year y = date.year();
+            while (m > 12) {
+                m -= 12;
+                y += 1;
+            }
+            while (m < 1) {
+                m += 12;
+                y -= 1;
+            }
+
+            FEL_REQUIRE(y >= 1900 && y <= 2199,
+                        "year " << y << " out of bounds. "
+                        << "It must be in [1901,2199]");
+
+            int length = monthLength(Month(m), isLeap(y));
+            if (d > length)
+                d = length;
+
+            return Date(d, Month(m), y);
+          }
+          case Years: {
+              Day d = date.dayOfMonth();
+              Month m = date.month();
+              Year y = date.year()+n;
+
+              FEL_REQUIRE(y >= 1900 && y <= 2199,
+                          "year " << y << " out of bounds. "
+                          << "It must be in [1901,2199]");
+
+              if (d == 29 && m == February && !isLeap(y))
+                  d = 28;
+
+              return Date(d,m,y);
+          }
+          default:
+            FEL_FAIL("undefined time units");
+        }
     }
 
     bool Date::isLeap(Year y) {

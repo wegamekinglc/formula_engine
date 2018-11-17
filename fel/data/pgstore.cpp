@@ -5,11 +5,6 @@ namespace FEngine {
     PGStore::PGStore(const std::string& conn)
         :conn_(conn) {}
 
-    pqxx::result PGStore::query(const std::string& statement) {
-        pqxx::work worker(conn_);
-        return worker.exec(statement);
-    }
-
     pqxx::result PGStore::fetch_data_internal(const std::vector<std::string>& codes,
                                               const std::vector<Date>& dates,
                                               const std::vector<std::string>& fields,
@@ -64,7 +59,16 @@ namespace FEngine {
                 break;
             statement += ", ";
         }
-        statement += ") order by trade_date, code;";
+        statement += ") order by trade_date, code";
+        statement = "select * from (" + statement + ") t where t.trade_date in (";
+        for(auto i = dates.begin();;) {
+            statement += worker.quote(Date::to_string(*i));
+            ++i;
+            if(i == dates.end())
+                break;
+            statement += ", ";
+        }
+        statement += ");";
         return worker.exec(statement);
     }
 
@@ -113,5 +117,9 @@ namespace FEngine {
                 res[date] = Series(symbols, vals); 
         }
         return res;
+    }
+
+    std::string PGStore::query_universe(std::string name, const std::vector<Date>& dates) const {
+        return std::string();
     }
 }

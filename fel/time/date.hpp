@@ -60,8 +60,15 @@ namespace FEngine {
             static int monthLength(Month m, bool leapYear);
             static int monthOffset(Month m, bool leapYear);
             static Date::serial_type yearOffset(Year y);
-            static Date advance(const Date& d, int units, TimeUnit);
             static Date endOfMonth(const Date& d);
+
+            Date& operator+=(Date::serial_type days);
+            //! increments date by the given period
+            Date& operator+=(const Period&);
+            //! decrement date by the given number of days
+            Date& operator-=(Date::serial_type days);
+            //! decrements date by the given period
+            Date& operator-=(const Period&);
 
             Date& operator++();
             //! 1-day post-increment
@@ -80,6 +87,7 @@ namespace FEngine {
             Date operator-(const Period&) const;
 
         private:
+            static Date advance(const Date& d, int units, TimeUnit);
             serial_type serial_;
     };
 

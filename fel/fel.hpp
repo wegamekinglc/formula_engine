@@ -5,6 +5,7 @@
 #include <fel/operators/crosssections.hpp>
 #include <fel/time/date.hpp>
 #include <fel/data/pgstore.hpp>
+#include <fel/time/calendars/china.hpp>
 
 
 namespace FEngine {

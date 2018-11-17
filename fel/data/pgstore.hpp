@@ -18,6 +18,9 @@ namespace FEngine {
                                        const std::vector<Date>& dates,
                                        unsigned int offset = 1,
                                        unsigned int horizon = 1);
+            pqxx::result fetch_market(const std::vector<std::string>& codes,
+                                      const std::vector<Date>& dates,
+                                      const std::vector<std::string>& fields);
             std::map<Date, DataPack> fetch_data_packs(const std::vector<std::string>& codes,
                                                       const std::vector<Date>& dates,
                                                       const std::vector<std::string>& fields);
@@ -27,6 +30,10 @@ namespace FEngine {
                                                         unsigned int horizon = 1);
 
         private:
+            pqxx::result fetch_data_internal(const std::vector<std::string>& codes,
+                                             const std::vector<Date>& dates,
+                                             const std::vector<std::string>& fields,
+                                             string table);
             pqxx::connection conn_;
     };
 }

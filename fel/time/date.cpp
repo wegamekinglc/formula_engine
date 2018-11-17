@@ -93,6 +93,10 @@ namespace FEngine {
         serial_ = d + offset + yearOffset(y);
     }
 
+    Weekday Date::weekday() const {
+        return Weekday(serial_ % 7);
+    }
+
     Month Date::month() const {
         Day d = dayOfYear(); // dayOfYear is 1 based
         int m = d / 30 + 1;
@@ -138,6 +142,13 @@ namespace FEngine {
         return maximumDate;
     }
 
+    Date Date::endOfMonth(const Date& d) {
+        const Month m = d.month();
+        const Year y = d.year();
+        bool  leapYear= isLeap(y);
+        return Date(y, m, monthLength(m, leapYear));
+    }
+
     std::ostream& operator<<(std::ostream& out, const Date& d) {
         return out << iso_date(d);
     }
@@ -146,6 +157,18 @@ namespace FEngine {
         std::ostringstream convert;
         convert << d;
         return convert.str();
+    }
+
+    Date& Date::operator++() {
+        Date::serial_type serial = serial_ + 1;
+        serial_ = serial;
+        return *this;
+    }
+
+    Date& Date::operator--() {
+        Date::serial_type serial = serial_ - 1;
+        serial_ = serial;
+        return *this;
     }
 
     bool Date::isLeap(Year y) {

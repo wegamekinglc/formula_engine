@@ -10,12 +10,15 @@ namespace FEngine {
         return worker.exec(statement);
     }
 
-    pqxx::result PGStore::fetch_factors(const std::vector<std::string>& codes, const std::vector<Date>& dates, const std::vector<std::string>& fields) {
+    pqxx::result PGStore::fetch_data_internal(const std::vector<std::string>& codes,
+                                              const std::vector<Date>& dates,
+                                              const std::vector<std::string>& fields,
+                                              string table) {
         pqxx::work worker(conn_);
         std::string statement = "select trade_date, code";
         for(auto field: fields)
-            statement += ", " + field;
-        statement += " from uqer where code in (";
+            statement += ", \"" + field + "\"";
+        statement += " from " + table + " where code in (";
         for(auto i = codes.begin();;) {
             statement += *i;
             ++i;
@@ -35,14 +38,22 @@ namespace FEngine {
         return worker.exec(statement);
     }
 
+    pqxx::result PGStore::fetch_market(const std::vector<std::string>& codes, const std::vector<Date>& dates, const std::vector<std::string>& fields) {
+        return fetch_data_internal(codes, dates, fields, "market");
+    }
+
+    pqxx::result PGStore::fetch_factors(const std::vector<std::string>& codes, const std::vector<Date>& dates, const std::vector<std::string>& fields) {
+        return fetch_data_internal(codes, dates, fields, "uqer");
+    }
+
     pqxx::result PGStore::fetch_returns(const std::vector<std::string>& codes, const std::vector<Date>& dates, unsigned int offset, unsigned int horizon) {
         pqxx::work worker(conn_);
         Date first_date = dates[0];
         Date last_date = dates[dates.size()-1];
         unsigned int first_row = offset;
         unsigned int last_row = offset + horizon - 1;
-        std::string statement = "select trade_date, code, chgpct, sum(ln(1. + chgpct)) over (partition by code order by trade_date rows between ";
-        statement += std::to_string(first_row) + " following and " + std::to_string(last_row) + " following ) as dx from eqy_stock_eod where ";
+        std::string statement = "select trade_date, code, sum(ln(1. + \"chgPct\")) over (partition by code order by trade_date rows between ";
+        statement += std::to_string(first_row) + " following and " + std::to_string(last_row) + " following ) as dx from market where ";
         statement += "trade_date between " + worker.quote(Date::to_string(first_date)) + " and ";
         statement +=  worker.quote(Date::to_string(last_date)) + " and ";
         statement += "code in (";
@@ -71,9 +82,10 @@ namespace FEngine {
                 if(data.find(s) == data.end())
                     data[s] = map<string, map<DateTime, double>>();
                 for(auto f: fields) {
-                    if(data[s].find(f) == data[s].end())
+                    std::string escaped = "\""+ f + "\"";
+                    if(data[s].find(escaped) == data[s].end())
                         data[s][f] = map<DateTime, double>();
-                    data[s][f][date] = (*it)[f].as<double>();
+                    data[s][f][date] = (*it)[escaped].as<double>();
                 }
                 ++it;
                 if(it == r.end() || Date((*it)["trade_date"].c_str()) != date )

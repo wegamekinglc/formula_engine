@@ -2,6 +2,8 @@
 
 #include <iostream>
 #include <fel/time/timeunit.hpp>
+#include <fel/time/period.hpp>
+#include <fel/time/weekday.hpp>
 
 namespace FEngine {
 
@@ -41,7 +43,8 @@ namespace FEngine {
             explicit Date(serial_type serial);
             Date(const std::string& str);
             Date(Year y, Month m, Day d);
-
+            
+            Weekday weekday() const;
             Day dayOfMonth() const;
             Day dayOfYear() const;
             Month month() const;
@@ -58,6 +61,23 @@ namespace FEngine {
             static int monthOffset(Month m, bool leapYear);
             static Date::serial_type yearOffset(Year y);
             static Date advance(const Date& d, int units, TimeUnit);
+            static Date endOfMonth(const Date& d);
+
+            Date& operator++();
+            //! 1-day post-increment
+            Date operator++(int );
+            //! 1-day pre-decrement
+            Date& operator--();
+            //! 1-day post-decrement
+            Date operator--(int );
+            //! returns a new date incremented by the given number of days
+            Date operator+(Date::serial_type days) const;
+            //! returns a new date incremented by the given period
+            Date operator+(const Period&) const;
+            //! returns a new date decremented by the given number of days
+            Date operator-(Date::serial_type days) const;
+            //! returns a new date decremented by the given period
+            Date operator-(const Period&) const;
 
         private:
             serial_type serial_;

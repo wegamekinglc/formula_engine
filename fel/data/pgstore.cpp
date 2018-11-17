@@ -15,7 +15,7 @@ namespace FEngine {
         std::string statement = "select trade_date, code";
         for(auto field: fields)
             statement += ", " + field;
-        statement += " from eqy_stock_eod where code in (";
+        statement += " from uqer where code in (";
         for(auto i = codes.begin();;) {
             statement += *i;
             ++i;

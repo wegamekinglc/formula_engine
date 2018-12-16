@@ -8,27 +8,26 @@ namespace FEngine {
         public:
             using const_iterator = map<string, double>::const_iterator;
             friend bool operator==(const Series& lhs, const Series& rhs);
-            Series() {}
-            Series(const vector<string>& keys, const vector<double>& vals) {
+            Series() = default;
+            Series(const vector<string>& keys, const vector<double>& values) {
                 for (size_t i = 0; i < keys.size(); ++i)
-                    maps_[keys[i]] = vals[i];
+                    maps_[keys[i]] = values[i];
                 keys_ = keys;
-                vals_ = vals;
+                values_ = values;
             }
 
-            explicit Series(const map<string, double>& vals) {
-                maps_ = vals;
-                for (map<string, double>::const_iterator it=maps_.begin();
-                        it != maps_.end(); ++it) {
-                    keys_.push_back(it->first);
-                    vals_.push_back(it->second);
+            explicit Series(const map<string, double>& values) {
+                maps_ = values;
+                for(const auto& it: values) {
+                    keys_.push_back(it.first);
+                    values_.push_back(it.second);
                 }
             }
 
-            Series(string key, double val) {
+            Series(const string& key, double val) {
                 maps_[key] = val;
                 keys_.push_back(key);
-                vals_.push_back(val);
+                values_.push_back(val);
             }
 
             double& operator[](const string& key) { return maps_[key];}
@@ -38,13 +37,13 @@ namespace FEngine {
             const_iterator begin() const { return maps_.begin();}
             const_iterator end() const { return maps_.end();}
             const vector<string>& keys() const { return keys_;}
-            const vector<double>& vals() const { return vals_;}
+            const vector<double>& values() const { return values_;}
 
 
         private:
             map<string, double> maps_;
             vector<string> keys_;
-            vector<double> vals_;
+            vector<double> values_;
     };
 
     bool operator==(const Series& lhs, const Series& rhs);

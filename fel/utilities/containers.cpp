@@ -31,18 +31,18 @@ namespace FEngine {
     Series operator+(const Series& lhs, const Series& rhs) {
         map<string, double> res;
 
-        for(Series::const_iterator it = lhs.begin(); it != lhs.end(); ++it) {
-            string key = it->first;
-            double val = it->second;
+        for(const auto& it: lhs) {
+            string key = it.first;
+            double val = it.second;
             if(rhs.find(key) != rhs.end())
                 val += rhs.at(key);
             res[key] = val;
         }
 
-        for(Series::const_iterator it = rhs.begin(); it != rhs.end(); ++it) {
-            string key = it->first;
+        for(const auto& it: rhs) {
+            string key = it.first;
             if(lhs.find(key) == lhs.end())
-                res[key] = it->second;
+                res[key] = it.second;
         }
         
         return Series(res);
@@ -51,18 +51,18 @@ namespace FEngine {
     Series operator-(const Series& lhs, const Series& rhs) {
         map<string, double> res;
 
-        for(Series::const_iterator it = lhs.begin(); it != lhs.end(); ++it) {
-            string key = it->first;
-            double val = it->second;
+        for(const auto& it: lhs) {
+            string key = it.first;
+            double val = it.second;
             if(rhs.find(key) != rhs.end())
                 val -= rhs.at(key);
             res[key] = val;
         }
 
-        for(Series::const_iterator it = rhs.begin(); it != rhs.end(); ++it) {
-            string key = it->first;
+        for(const auto& it: rhs) {
+            string key = it.first;
             if(lhs.find(key) == lhs.end())
-                res[key] = -it->second;
+                res[key] = -it.second;
         }
         
         return Series(res);
@@ -71,18 +71,18 @@ namespace FEngine {
     Series operator*(const Series& lhs, const Series& rhs) {
         map<string, double> res;
 
-        for(Series::const_iterator it = lhs.begin(); it != lhs.end(); ++it) {
-            string key = it->first;
-            double val = it->second;
+        for(const auto& it: lhs) {
+            string key = it.first;
+            double val = it.second;
             if(rhs.find(key) != rhs.end())
                 val *= rhs.at(key);
             res[key] = val;
         }
 
-        for(Series::const_iterator it = rhs.begin(); it != rhs.end(); ++it) {
-            string key = it->first;
+        for(const auto& it: rhs) {
+            string key = it.first;
             if(lhs.find(key) == lhs.end())
-                res[key] = it->second;
+                res[key] = it.second;
         }
     
         return Series(res);
@@ -91,18 +91,18 @@ namespace FEngine {
     Series operator/(const Series& lhs, const Series& rhs) {
         map<string, double> res;
 
-        for(Series::const_iterator it = lhs.begin(); it != lhs.end(); ++it) {
-            string key = it->first;
-            double val = it->second;
+        for(const auto& it: lhs) {
+            string key = it.first;
+            double val = it.second;
             if(rhs.find(key) != rhs.end())
                 val /= rhs.at(key);
             res[key] = val;
         }
 
-        for(Series::const_iterator it = rhs.begin(); it != rhs.end(); ++it) {
-            string key = it->first;
+        for(const auto& it: rhs) {
+            string key = it.first;
             if(lhs.find(key) == lhs.end())
-                res[key] = 1. / it->second;
+                res[key] = 1. / it.second;
         }
     
         return Series(res);
@@ -111,9 +111,9 @@ namespace FEngine {
     Series operator/(const Series& lhs, double rhs) {
         map<string, double> res;
 
-        for(Series::const_iterator it = lhs.begin(); it != lhs.end(); ++it) {
-            string key = it->first;
-            double val = it->second;
+        for(const auto& it: lhs) {
+            string key = it.first;
+            double val = it.second;
             res[key] = val / rhs;
         }
     
@@ -122,9 +122,9 @@ namespace FEngine {
 
     double dot(const Series& lhs, const Series& rhs) {
         double res = 0.;
-        for(Series::const_iterator it = lhs.begin(); it != lhs.end(); ++it) {
-            string key = it->first;
-            double val = it->second;
+        for(const auto& it: lhs) {
+            string key = it.first;
+            double val = it.second;
             if(rhs.find(key) != rhs.end())
                 res += val * rhs.at(key);
         }
@@ -134,8 +134,8 @@ namespace FEngine {
     double sum(const Series& rhs) {
         double res = 0.;
 
-        for(Series::const_iterator it = rhs.begin(); it != rhs.end(); ++it) {
-            double val = it->second;
+        for(const auto& it: rhs) {
+            double val = it.second;
             res += val;
         }
         return res;
@@ -143,8 +143,8 @@ namespace FEngine {
 
     Series operator-(const Series& rhs) {
         map<string, double> res;
-        for(Series::const_iterator it = rhs.begin(); it != rhs.end(); ++it) 
-            res[it->first] = -it->second;
+        for(const auto& it: rhs)
+            res[it.first] = -it.second;
         return Series(res);
     }
 
@@ -155,15 +155,15 @@ namespace FEngine {
     Series abs(const Series& rhs) {
         map<string, double> res;
 
-        for(Series::const_iterator it = rhs.begin(); it != rhs.end(); ++it) {
-            string key = it->first;
-            double val = it->second;
+        for(const auto& it: rhs) {
+            string key = it.first;
+            double val = it.second;
             res[key] = val >= 0 ? val : -val;
         }
         return Series(res);
     }
 
     Series rank(const Series& rhs) {
-        return Series(rhs.keys(), rankSort(rhs.vals()));
+        return Series(rhs.keys(), rankSort(rhs.values()));
     }
 }

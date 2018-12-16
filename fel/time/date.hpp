@@ -38,10 +38,10 @@ namespace FEngine {
 
     class Date {
         public:
-            using serial_type = unsigned int;
+            using serial_type = int;
             Date();
             explicit Date(serial_type serial);
-            Date(const std::string& str);
+            explicit Date(const std::string& str);
             Date(Year y, Month m, Day d);
             
             Weekday weekday() const;

@@ -10,7 +10,8 @@
 
     * Linux - g++ 5.4 or above
 
-* google test >= 1.8.0 
+* google test >= 1.8.0
+* libpq-dev
 
 ## Install
 

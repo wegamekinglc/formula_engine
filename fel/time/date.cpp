@@ -58,9 +58,9 @@ namespace FEngine {
                 out << "null date";
             } else {
                 FormatResetter resetter(out);
-                unsigned int dd = d.dayOfMonth();
-                unsigned int mm = d.month();
-                unsigned yyyy = d.year();
+                int dd = d.dayOfMonth();
+                int mm = d.month();
+                int yyyy = d.year();
                 out << yyyy << "-";
                 out << std::setw(2) << std::setfill('0') << mm << "-";
                 out << std::setw(2) << std::setfill('0') << dd;

@@ -10,7 +10,7 @@ TEST(SettingsTest, TestReferenceDate) {
 }
 
 TEST(SettingsTest, TestSymbols) {
-    vector<string> symbols = {"a", "b"};
+    Vector_<String_> symbols = {"a", "b"};
     Settings::instance().setSymbols(symbols);
     ASSERT_EQ(symbols, Settings::instance().symbols());
 }

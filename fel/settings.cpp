@@ -9,15 +9,15 @@ namespace FEngine {
         referenceDate_ = dt;
     }
 
-    const vector<string>& Settings::symbols() const {
+    const Vector_<String_>& Settings::symbols() const {
         return symbols_;
     }
 
-    void Settings::setSymbols(const vector<string>& symbols) {
+    void Settings::setSymbols(const Vector_<String_>& symbols) {
         symbols_ = symbols;
     }
 
-    GlobalSymbols::GlobalSymbols(const vector<string>& symbols) {
+    GlobalSymbols::GlobalSymbols(const Vector_<String_>& symbols) {
         preSymbols_ = Settings::instance().symbols();
         Settings::instance().setSymbols(symbols);
     }

@@ -13,19 +13,19 @@ namespace FEngine {
     }
 
     Depends Last::depends(const DateTime& base) const {
-        vector<DateTime> dts(1, base);
+        Vector_<DateTime> dts(1, base);
         Depends res;
         res[name_] = dts;
         return res;
     }
 
-    std::vector<std::string> Last::depends() const {
-        return std::vector<std::string>(1, name_);
+    Vector_<String_> Last::depends() const {
+        return Vector_<String_>(1, name_);
     }
 
     Series Last::calculate(const DataPack& data, const DateTime& base) const {
-        const vector<string>& symbols = Settings::instance().symbols();
-        vector<double> values(symbols.size());
+        const Vector_<String_>& symbols = Settings::instance().symbols();
+        Vector_<double> values(symbols.size());
         for(size_t i = 0; i != symbols.size(); ++i) {
             values[i] = data.at(symbols[i]).at(name_).at(base);
         }
@@ -49,7 +49,7 @@ namespace FEngine {
         return new Shift(*inner_, n_);
     }
 
-    std::vector<std::string> Shift::depends() const {
+    Vector_<String_> Shift::depends() const {
         return inner_->depends();
     }
 
@@ -67,7 +67,7 @@ namespace FEngine {
         return mergeDepends(ldep, rdep);
     }
 
-    std::vector<std::string> BinaryOperator::depends() const {
+    Vector_<String_> BinaryOperator::depends() const {
         auto ldep = lhs_->depends();
         auto rdep = rhs_->depends();
         ldep.insert(ldep.end(), rdep.begin(), rdep.end());

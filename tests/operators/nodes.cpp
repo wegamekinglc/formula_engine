@@ -6,10 +6,10 @@ using namespace FEngine;
 
 TEST(TestNodes, TestLast) {
     DataPack data;
-    data["aapl"] = map<string, map<DateTime, double>>();
-    data["ibm"] = map<string, map<DateTime, double>>();
-    data["aapl"]["close"] = map<DateTime, double>();
-    data["ibm"]["close"] = map<DateTime, double>();
+    data["aapl"] = Map_<String_, Map_<DateTime, double>>();
+    data["ibm"] = Map_<String_, Map_<DateTime, double>>();
+    data["aapl"]["close"] = Map_<DateTime, double>();
+    data["ibm"]["close"] = Map_<DateTime, double>();
     data["aapl"]["close"][Date("2018-01-05")] = 2.;
     data["ibm"]["close"][Date("2018-01-05")] = 3.;
 
@@ -23,10 +23,10 @@ TEST(TestNodes, TestLast) {
 
 TEST(TestNodes, TestPlusOperator) {
     DataPack data;
-    data["aapl"] = map<string, map<DateTime, double>>();
-    data["ibm"] = map<string, map<DateTime, double>>();
-    data["aapl"]["close"] = map<DateTime, double>();
-    data["ibm"]["close"] = map<DateTime, double>();
+    data["aapl"] = Map_<String_, Map_<DateTime, double>>();
+    data["ibm"] = Map_<String_, Map_<DateTime, double>>();
+    data["aapl"]["close"] = Map_<DateTime, double>();
+    data["ibm"]["close"] = Map_<DateTime, double>();
     data["aapl"]["close"][Date("2018-01-05")] = 2.;
     data["ibm"]["close"][Date("2018-01-05")] = 3.;
 
@@ -43,10 +43,10 @@ TEST(TestNodes, TestPlusOperator) {
 
 TEST(TestNodes, TestMinusOperator) {
     DataPack data;
-    data["aapl"] = map<string, map<DateTime, double>>();
-    data["ibm"] = map<string, map<DateTime, double>>();
-    data["aapl"]["close"] = map<DateTime, double>();
-    data["ibm"]["close"] = map<DateTime, double>();
+    data["aapl"] = Map_<String_, Map_<DateTime, double>>();
+    data["ibm"] = Map_<String_, Map_<DateTime, double>>();
+    data["aapl"]["close"] = Map_<DateTime, double>();
+    data["ibm"]["close"] = Map_<DateTime, double>();
     data["aapl"]["close"][Date("2018-01-05")] = 2.;
     data["ibm"]["close"][Date("2018-01-05")] = 3.;
 
@@ -63,10 +63,10 @@ TEST(TestNodes, TestMinusOperator) {
 
 TEST(TestNodes, TestMultiplyOperator) {
     DataPack data;
-    data["aapl"] = map<string, map<DateTime, double>>();
-    data["ibm"] = map<string, map<DateTime, double>>();
-    data["aapl"]["close"] = map<DateTime, double>();
-    data["ibm"]["close"] = map<DateTime, double>();
+    data["aapl"] = Map_<String_, Map_<DateTime, double>>();
+    data["ibm"] = Map_<String_, Map_<DateTime, double>>();
+    data["aapl"]["close"] = Map_<DateTime, double>();
+    data["ibm"]["close"] = Map_<DateTime, double>();
     data["aapl"]["close"][Date("2018-01-05")] = 2.;
     data["ibm"]["close"][Date("2018-01-05")] = 3.;
 
@@ -83,10 +83,10 @@ TEST(TestNodes, TestMultiplyOperator) {
 
 TEST(TestNodes, TestDivideOperator) {
     DataPack data;
-    data["aapl"] = map<string, map<DateTime, double>>();
-    data["ibm"] = map<string, map<DateTime, double>>();
-    data["aapl"]["close"] = map<DateTime, double>();
-    data["ibm"]["close"] = map<DateTime, double>();
+    data["aapl"] = Map_<String_, Map_<DateTime, double>>();
+    data["ibm"] = Map_<String_, Map_<DateTime, double>>();
+    data["aapl"]["close"] = Map_<DateTime, double>();
+    data["ibm"]["close"] = Map_<DateTime, double>();
     data["aapl"]["close"][Date("2018-01-05")] = 2.;
     data["ibm"]["close"][Date("2018-01-05")] = 3.;
 

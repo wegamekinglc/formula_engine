@@ -4,8 +4,8 @@
 using namespace FEngine;
 
 TEST(SeriesTest, TestGet) {
-    vector<string> keys = {"a", "b"};
-    vector<double> vals = {2., 1.};
+    Vector_<String_> keys = {"a", "b"};
+    Vector_<double> vals = {2., 1.};
 
     Series res(keys, vals);
     ASSERT_EQ(res["a"], 2.);
@@ -13,8 +13,8 @@ TEST(SeriesTest, TestGet) {
 }
 
 TEST(SeriesTest, TestAt) {
-    vector<string> keys = {"a", "b"};
-    vector<double> vals = {2., 1.};
+    Vector_<String_> keys = {"a", "b"};
+    Vector_<double> vals = {2., 1.};
 
     Series res(keys, vals);
     ASSERT_EQ(res.at("a"), 2.);
@@ -22,139 +22,139 @@ TEST(SeriesTest, TestAt) {
 }
 
 TEST(SeriesTest, TestSize) {
-    vector<string> keys = {"a", "b"};
-    vector<double> vals = {2., 1.};
+    Vector_<String_> keys = {"a", "b"};
+    Vector_<double> vals = {2., 1.};
 
     Series res(keys, vals);
     ASSERT_EQ(res.size(), 2);   
 }
 
 TEST(SeriesTest, TestIteration) {
-    vector<string> keys = {"a", "b", "c"};
-    vector<double> vals = {2., 1., 3.};
+    Vector_<String_> keys = {"a", "b", "c"};
+    Vector_<double> vals = {2., 1., 3.};
 
     Series res(keys, vals);
     int counts = 0;
-    for(Series::const_iterator it = res.begin(); it != res.end(); ++it) {
+    for(auto &pair: res) {
         ++counts;
-        if(it->first == "a")
-            ASSERT_EQ(it->second, 2.);
-        else if (it->first == "b")
-            ASSERT_EQ(it->second, 1.);
+        if(pair.first == "a")
+            ASSERT_EQ(pair.second, 2.);
+        else if (pair.first == "b")
+            ASSERT_EQ(pair.second, 1.);
         else
-            ASSERT_EQ(it->second, 3.);
+            ASSERT_EQ(pair.second, 3.);
         
     }
     ASSERT_EQ(counts, 3);
 }
 
 TEST(SeriesTest, TestPlus) {
-    vector<string> keys1 = {"a", "b", "c"};
-    vector<double> vals1 = {2., 1., 3.};
+    Vector_<String_> keys1 = {"a", "b", "c"};
+    Vector_<double> vals1 = {2., 1., 3.};
     Series lhs(keys1, vals1);
 
-    vector<string> keys2 = {"b", "c", "d"};
-    vector<double> vals2 = {2., 1., 3.};
+    Vector_<String_> keys2 = {"b", "c", "d"};
+    Vector_<double> vals2 = {2., 1., 3.};
     Series rhs(keys2, vals2);
 
     Series res = lhs + rhs;
-    for(Series::const_iterator it = lhs.begin(); it != lhs.end(); ++it) {
-        string key = it->first;
-        double val1 = it->second;
+    for(auto &pair: lhs) {
+        String_ key = pair.first;
+        double val1 = pair.second;
         if(rhs.find(key) != rhs.end())
             ASSERT_EQ(res[key], val1 + rhs[key]);
         else
             ASSERT_EQ(res[key], val1);
     }
 
-    for(Series::const_iterator it = rhs.begin(); it != rhs.end(); ++it) {
-        string key = it->first;
+    for(auto &pair: rhs) {
+        String_ key = pair.first;
         if(lhs.find(key) == lhs.end())
-            ASSERT_EQ(res[key], it->second);
+            ASSERT_EQ(res[key], pair.second);
     }
 }
 
 TEST(SeriesTest, TestMinus) {
-    vector<string> keys1 = {"a", "b", "c"};
-    vector<double> vals1 = {2., 1., 3.};
+    Vector_<String_> keys1 = {"a", "b", "c"};
+    Vector_<double> vals1 = {2., 1., 3.};
     Series lhs(keys1, vals1);
 
-    vector<string> keys2 = {"b", "c", "d"};
-    vector<double> vals2 = {2., 1., 3.};
+    Vector_<String_> keys2 = {"b", "c", "d"};
+    Vector_<double> vals2 = {2., 1., 3.};
     Series rhs(keys2, vals2);
 
     Series res = lhs - rhs;
-    for(Series::const_iterator it = lhs.begin(); it != lhs.end(); ++it) {
-        string key = it->first;
-        double val1 = it->second;
+    for(auto &pair: lhs) {
+        String_ key = pair.first;
+        double val1 = pair.second;
         if(rhs.find(key) != rhs.end())
             ASSERT_EQ(res[key], val1 - rhs[key]);
         else
             ASSERT_EQ(res[key], val1);
     }
 
-    for(Series::const_iterator it = rhs.begin(); it != rhs.end(); ++it) {
-        string key = it->first;
+    for(auto &pair: rhs) {
+        String_ key = pair.first;
         if(lhs.find(key) == lhs.end())
-            ASSERT_EQ(res[key], -it->second);
+            ASSERT_EQ(res[key], -pair.second);
     }
 }
 
 TEST(SeriesTest, TestMultiply) {
-    vector<string> keys1 = {"a", "b", "c"};
-    vector<double> vals1 = {2., 1., 3.};
+    Vector_<String_> keys1 = {"a", "b", "c"};
+    Vector_<double> vals1 = {2., 1., 3.};
     Series lhs(keys1, vals1);
 
-    vector<string> keys2 = {"b", "c", "d"};
-    vector<double> vals2 = {2., 1., 3.};
+    Vector_<String_> keys2 = {"b", "c", "d"};
+    Vector_<double> vals2 = {2., 1., 3.};
     Series rhs(keys2, vals2);
 
     Series res = lhs * rhs;
-    for(Series::const_iterator it = lhs.begin(); it != lhs.end(); ++it) {
-        string key = it->first;
-        double val1 = it->second;
+    for(auto &pair: lhs) {
+        String_ key = pair.first;
+        double val1 = pair.second;
         if(rhs.find(key) != rhs.end())
             ASSERT_EQ(res[key], val1 * rhs[key]);
         else
             ASSERT_EQ(res[key], val1);
     }
 
-    for(Series::const_iterator it = rhs.begin(); it != rhs.end(); ++it) {
-        string key = it->first;
+    for(auto it = rhs.begin(); it != rhs.end(); ++it) {
+        String_ key = it->first;
         if(lhs.find(key) == lhs.end())
             ASSERT_EQ(res[key], it->second);
     }
 }
 
 TEST(SeriesTest, TestDivide) {
-    vector<string> keys1 = {"a", "b", "c"};
-    vector<double> vals1 = {2., 1., 3.};
+    Vector_<String_> keys1 = {"a", "b", "c"};
+    Vector_<double> vals1 = {2., 1., 3.};
     Series lhs(keys1, vals1);
 
-    vector<string> keys2 = {"b", "c", "d"};
-    vector<double> vals2 = {2., 1., 3.};
+    Vector_<String_> keys2 = {"b", "c", "d"};
+    Vector_<double> vals2 = {2., 1., 3.};
     Series rhs(keys2, vals2);
 
     Series res = lhs / rhs;
-    for(Series::const_iterator it = lhs.begin(); it != lhs.end(); ++it) {
-        string key = it->first;
-        double val1 = it->second;
+    for(auto &pair: lhs) {
+        String_ key = pair.first;
+        double val1 = pair.second;
         if(rhs.find(key) != rhs.end())
             ASSERT_EQ(res[key], val1 / rhs[key]);
         else
             ASSERT_EQ(res[key], val1);
     }
 
-    for(Series::const_iterator it = rhs.begin(); it != rhs.end(); ++it) {
-        string key = it->first;
+    for(auto it = rhs.begin(); it != rhs.end(); ++it) {
+        String_ key = it->first;
         if(lhs.find(key) == lhs.end())
             ASSERT_EQ(res[key], 1. / it->second);
     }
 }
 
 TEST(SeriesTest, TestNegative) {
-    vector<string> keys = {"a", "b"};
-    vector<double> vals = {2., 1.};
+    Vector_<String_> keys = {"a", "b"};
+    Vector_<double> vals = {2., 1.};
 
     Series rhs(keys, vals);
     Series res = -rhs;
@@ -163,8 +163,8 @@ TEST(SeriesTest, TestNegative) {
 }
 
 TEST(SeriesTest, TestRank) {
-    vector<string> keys = {"a", "b", "c"};
-    vector<double> vals = {4., 2., 6.};
+    Vector_<String_> keys = {"a", "b", "c"};
+    Vector_<double> vals = {4., 2., 6.};
 
     Series rhs(keys, vals);
     Series res = rank(rhs);

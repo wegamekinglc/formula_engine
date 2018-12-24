@@ -7,11 +7,10 @@ namespace FEngine {
     class Singleton {
         public:
             static T& instance();
+            Singleton(const Singleton&) = delete;
+            T& operator=(const Singleton&) = delete;
         protected:
-            Singleton() {}
-        private:
-            Singleton(const Singleton&);
-            T& operator=(const Singleton&);
+            Singleton() = default;
     };
 
     template <class T>
@@ -24,21 +23,21 @@ namespace FEngine {
         public:
             DateTime referenceDate() const;
             void setReferenceDate(const DateTime&);
-            const vector<string>& symbols() const;
-            void setSymbols(const vector<string>&);
+            const Vector_<String_>& symbols() const;
+            void setSymbols(const Vector_<String_>&);
 
         private:
             DateTime referenceDate_;
-            vector<string> symbols_;
+            Vector_<String_> symbols_;
     };
 
 
     class GlobalSymbols {
         public:
-            GlobalSymbols(const vector<string>& symbols);
+            explicit GlobalSymbols(const Vector_<String_>& symbols);
             ~GlobalSymbols();
 
         private:
-            vector<string> preSymbols_;
+            Vector_<String_> preSymbols_;
     };
 }

@@ -9,7 +9,7 @@
 namespace FEngine {
     class PGStore {
         public:
-            PGStore(const std::string& conn);
+            explicit PGStore(const std::string& conn);
             
             std::map<Date, DataPack> fetch_data_packs(const std::vector<std::string>& codes,
                                                       const std::vector<Date>& dates,
@@ -35,7 +35,7 @@ namespace FEngine {
             pqxx::result fetch_data_internal(const std::vector<std::string>& codes,
                                              const std::vector<Date>& dates,
                                              const std::vector<std::string>& fields,
-                                             string table);
+                                             String_ table);
             pqxx::connection conn_;
     };
 }
